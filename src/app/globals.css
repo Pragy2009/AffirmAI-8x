@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
+
+:root {
+  /* Brand Colors */
+  --color-primary: 245 100% 68%;
+  --color-primary-foreground: 0 0% 100%;
+  --color-secondary: 280 80% 72%;
+  --color-accent: 340 82% 72%;
+
+  /* Surfaces — Light */
+  --color-background: 240 20% 98%;
+  --color-foreground: 230 25% 12%;
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 230 25% 12%;
+  --color-muted: 240 10% 94%;
+  --color-muted-foreground: 230 10% 46%;
+  --color-border: 240 10% 90%;
+  --color-input: 240 10% 90%;
+  --color-ring: 245 100% 68%;
+
+  /* Semantic */
+  --color-destructive: 0 84% 60%;
+  --color-success: 142 76% 36%;
+
+  /* Layout */
+  --radius: 0.75rem;
+  --nav-height: 4rem;
+}
+
+.dark {
+  --color-background: 230 25% 7%;
+  --color-foreground: 240 20% 95%;
+  --color-card: 230 25% 10%;
+  --color-card-foreground: 240 20% 95%;
+  --color-muted: 230 20% 14%;
+  --color-muted-foreground: 230 10% 55%;
+  --color-border: 230 20% 18%;
+  --color-input: 230 20% 18%;
+  --color-ring: 245 100% 68%;
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
+
+* {
+  border-color: hsl(var(--color-border));
+}
+
+body {
+  background: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-muted-foreground) / 0.5);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+
+::selection {
+  background: hsl(var(--color-primary) / 0.2);
+  color: hsl(var(--color-foreground));
+}
+
+/* ─── Premium Glass Effect ───────────────────────────────────────────────── */
+
+.glass {
+  background: hsl(var(--color-card) / 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid hsl(var(--color-border) / 0.3);
+}
+
+.dark .glass {
+  background: hsl(var(--color-card) / 0.4);
+}
+
+/* ─── Gradient Text ──────────────────────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--color-primary)),
+    hsl(var(--color-secondary)),
+    hsl(var(--color-accent))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Animated Gradient Background ───────────────────────────────────────── */
+
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Glow Effect ────────────────────────────────────────────────────────── */
+
+.glow {
+  box-shadow:
+    0 0 20px hsl(var(--color-primary) / 0.15),
+    0 0 60px hsl(var(--color-primary) / 0.05);
+}
+
+/* ─── Card Hover Lift ────────────────────────────────────────────────────── */
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 40px -12px hsl(var(--color-foreground) / 0.08),
+    0 0 0 1px hsl(var(--color-border) / 0.5);
+}
+
+/* ─── Mobile Touch ───────────────────────────────────────────────────────── */
+
+@media (hover: none) {
+  .card-hover:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ─── Safe Area (PWA) ────────────────────────────────────────────────────── */
+
+.safe-top { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-left { padding-left: env(safe-area-inset-left); }
+.safe-right { padding-right: env(safe-area-inset-right); }
+
+/* ─── Shimmer Loading ────────────────────────────────────────────────────── */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--color-muted)) 25%,
+    hsl(var(--color-muted-foreground) / 0.1) 50%,
+    hsl(var(--color-muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ─── Page Transition ────────────────────────────────────────────────────── */
+
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
